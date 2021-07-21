@@ -1,35 +1,28 @@
 import React, {useState} from "react";
 import "../ButtonsTemp/ButtonsTemp.scss"
-function Plot({time, day}) {
-    console.log(time);
-    console.log(day)
-    // console.log(time)
-//   console.log(timezone[0]);
-//   var d = new Date();
-//   var n = d.getUTCHours();
-
-//   var offset = timezone / 3600;
-//   var timeincity = n + offset;
-//   let arrtime = [];
-//   console.log(timeincity);
-    // for(let x = 0; x < 40; x++){
-        // setweatherdata(prevState => {
-            // return {        ...prevState,
-                    // time: [...prevState.time, timeincity],
-                //  }    }
-
-
-// );
-// timeincity = timeincity + 3;
-// if(timeincity > 24){
-//   timeincity = timeincity%24;
-    // }}
-
-
-//   console.log(arrday);
-//   console.log(arrhour);
+function Plot({time, day, temperature, displayindex}) {
+    let nextdayindex;
+    let arrcel = [];
+    let arrfar = [];
+    let components =[];
+    // console.log(day);
+    for (let x = 0; x <= 40; x++){
+       arrcel.push(Number.parseInt(temperature[displayindex] - 273.15));
+       arrfar.push(Number.parseInt((temperature[displayindex] - 273.15) * 1.8 + 32))
+    }
+    for (let x = 0; x < 8; x++){
+       
+        if(time[x] > time[x+1]){
+            nextdayindex = x+1;
+        }
+        
+    }
+    console.log(nextdayindex);
+    for(let x = 0; x < 7; x++){
+    components.push(React.createElement('h1',{style: {color: "red", backgroundColor: "blue"}}, 'My First React Code'));
+    }
   return ( 
- <></>
+ <>{components}</>
   );
 }
 

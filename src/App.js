@@ -147,6 +147,7 @@ timeincity = timeincity + 3;
  }
 }
 
+
           }
               
     })
@@ -268,6 +269,9 @@ timeincity = timeincity + 3;
           <Plot
           time ={weatherData.time}
           day = {weatherData.day}
+
+          temperature={weatherData.temperature}
+          displayindex={displayindex}
           
          
          
@@ -280,18 +284,7 @@ timeincity = timeincity + 3;
       )}
         
 <>
-<button className="buttondowyjebania"
-                  onClick={() => {
 
-                     setDisplayindex(27)
-                      // latlon(lat, lon)
-                      // setError(false);
-                     
-
-
-                  }}
-
-          />
 </>
     </div>
     
