@@ -17,6 +17,8 @@ function App() {
   const [city, setCity] = useState("");
   const [responsecod, setResponsecod] = useState(0);
   const[displayindex, setDisplayindex] = useState(0);
+
+  const [nextday, setNextday] = useState(0);
   const [unit, setUnit] = useState("km/h");
   const [isCelsius, setIsCelsius]  = useState(true);
   const [tempbutton, setTempbutton] = useState(true);
@@ -55,7 +57,7 @@ function App() {
       winddeg: [],
       timezone: "",
       time: [],
-      day: []
+      day: "",
       
       
 }    });
@@ -78,31 +80,35 @@ function App() {
       })
 
           .then((response) => {
-            console.log(response.data.city.timezone);
+            // console.log(response.data.city.timezone);
           // console.log(response.status);
           // console.log(Number.parseInt(response.status) === 200)
           // console.log(response.data.list[0].dt);
           setResponsecod(Number.parseInt(response.status));
           var d = new Date();
           var n = d.getUTCHours();
-    
+          var day = d.getDay();
+          console.log(day);
           var offset = response.data.city.timezone / 3600;
           var timeincity = n + offset;
-          console.log(timeincity);
+          // console.log(timeincity);
           if(timeincity > 24){
             timeincity = timeincity%24;
+            day = day + 1;
             if (day > 6){
               day = 0;
             }
-            else{
-            day = day + 1;
-          }}
+            // else{
+            // day = day + 1;
+          // }
+        }
 
-          var day = d.getDay();
+          // var day = d.getDay();
           var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
           setweatherdata(prevState => {return {        ...prevState,
             timezone: [...prevState.timezone, response.data.city.timezone],
+            day: [...prevState.day, day]
            
 
 
@@ -126,7 +132,7 @@ function App() {
              windspeed: [...prevState.windspeed, response.data.list[x].wind.speed],
              winddeg: [...prevState.winddeg, response.data.list[x].wind.winddeg],
              time: [...prevState.time, timeincity],
-             day: [...prevState.day, days[day]],
+            //  day: [...prevState.day, days[day]],
 
 
 
@@ -139,12 +145,12 @@ function App() {
 timeincity = timeincity + 3;
  if(timeincity > 24){
    timeincity = timeincity%24;
-   if (day > 6){
-     day = 0;
-   }
-   else{
-   day = day + 1;
- }
+  //  if (day > 6){
+    //  day = 0;
+  //  }
+  //  else{
+  //  day = day + 1;
+//  }
 }
 
 
@@ -227,6 +233,7 @@ timeincity = timeincity + 3;
            day = {weatherData.day}
            time = {weatherData.time}
            description ={weatherData.description}
+           nextday={nextday}
            displayindex = {displayindex}
       
           />
@@ -271,7 +278,10 @@ timeincity = timeincity + 3;
           day = {weatherData.day}
 
           temperature={weatherData.temperature}
+          setDisplayindex = {setDisplayindex}
           displayindex={displayindex}
+          nextday={nextday}
+          setNextday={setNextday}
           
          
          

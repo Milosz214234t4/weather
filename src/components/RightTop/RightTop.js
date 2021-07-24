@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, {useState} from "react";
 import "../RightTop/RightTop.scss"
-function RightTop({city, day,time,description, displayindex}) {
+function RightTop({city, day,time,description,nextday, displayindex}) {
 //  console.log(description);
 //  console.log(time[displayindex]);
 
