@@ -24,6 +24,7 @@ function App() {
   const [tempbutton, setTempbutton] = useState(true);
   const [precbutton, setPrecbutton] = useState(false);
   const [windbutton, setWindbutton] = useState(false);
+  const [plotunit, setPlotunit] = useState("km/h");
   
   const [weatherData, setweatherdata] = useState({time: [],
   description: [],
@@ -283,7 +284,8 @@ timeincity = timeincity + 3;
           setNextday={setNextday}
           windspeed={weatherData.windspeed}
           winddeg={weatherData.winddeg}
-          unit={unit}
+          setPlotunit={setPlotunit}
+          plotunit={plotunit}
          
          
           

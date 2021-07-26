@@ -5,7 +5,7 @@
     display: flex;
     justify-content: space-around;
     align-items: end;
-    // height: 50px;
+    height: 70px;
 }
 .hour{
     height: 20px;
@@ -16,4 +16,9 @@ legend{
     position: relative;
 bottom: 10px;
 
+}
+.arrow{
+    display: flex;
+    justify-content: center;
+    width: 12%;
 }
