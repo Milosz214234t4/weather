@@ -25,6 +25,7 @@ function App() {
   const [precbutton, setPrecbutton] = useState(false);
   const [windbutton, setWindbutton] = useState(false);
   const [plotunit, setPlotunit] = useState("km/h");
+  const [bordercolor, setBordercolor] = useState('#ffff00');
   
   const [weatherData, setweatherdata] = useState({time: [],
   description: [],
@@ -286,6 +287,8 @@ timeincity = timeincity + 3;
           winddeg={weatherData.winddeg}
           setPlotunit={setPlotunit}
           plotunit={plotunit}
+          bordercolor={bordercolor}
+          setBordercolor={setBordercolor}
          
          
           
