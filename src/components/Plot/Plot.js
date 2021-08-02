@@ -1,23 +1,25 @@
 import React, {useState} from "react";
 import "../Plot/Plot.scss"
 import { ArrowUp} from 'react-bootstrap-icons';
-function Plot({time, day, temperature,pop, setDisplayindex, displayindex, nextday, tempbutton, precbutton, windbutton, isCelsius, setNextday, windspeed, winddeg, setPlotunit, plotunit, bordercolor, setBordercolor}) {
+function Plot({time, temperature,pop, setDisplayindex, nextday, tempbutton, precbutton, isCelsius, windspeed, winddeg, setPlotunit, plotunit, bordercolor, setBordercolor, maxplot, setMaxplot}) {
     let nextdayindex;
     let components =[];
     let hour = [];
-    let buttonsnextday =[];
     let plotdata = [];
     let winddata = [];
     let plotdescription = [];
     let maxvalue;
     // console.log(windspeed);
-    console.log(temperature);   
+    // console.log(temperature);   
     if(tempbutton||precbutton){
+     
+
       for (let x = 0; x <= 40; x++){
-        plotdata.push(Number.parseInt(temperature[x] - 273.15));
         plotdescription.push(Number.parseInt(temperature[x] - 273.15));
+        plotdata.push(Number.parseInt(temperature[x] - 273.15));
      }
      maxvalue = Number.parseInt(Math.max(...temperature) - 273.15);
+     setMaxplot(maxvalue);
     if(tempbutton){
       setBordercolor("yellow")
       if(isCelsius){
@@ -26,7 +28,7 @@ function Plot({time, day, temperature,pop, setDisplayindex, displayindex, nextda
       }
       else{
         for (let x = 0; x <= 40; x++){
-          plotdescription.push(Number.parseInt((temperature[x] - 273.15) * 1.8 + 32));
+          plotdescription[x] = Number.parseInt(plotdescription[x] * 1.8 + 32);
        }
      
      
@@ -35,21 +37,26 @@ function Plot({time, day, temperature,pop, setDisplayindex, displayindex, nextda
       }
       }
     else if(precbutton){
+      plotdescription = [];
+      plotdata = [];
       setBordercolor("blue")
       for (let x = 0; x <= 40; x++){
         plotdata.push(pop[x]);
         plotdescription.push(pop[x]);
      }
-     
+     maxvalue = 0;
     maxvalue = Math.max(...pop);
+    setMaxplot(maxvalue);
+
+    console.log(maxvalue);
     // maxvalue = 100;
     setPlotunit('%')
     }
     for(let x = 0; x < 8; x++){
          
-      components.push(React.createElement('fieldset', 
+      components.push(React.createElement('div', 
       { 
-        style: {height:(plotdata[x+nextday]/maxvalue ) * 40, background: bordercolor  }, className: "plot", background: {bordercolor},
+        style: {height:(plotdata[x+nextday]/maxvalue ) * 50 + 10, background: bordercolor  }, className: "plot", background: {bordercolor},
         onClick: () => {setDisplayindex(x+nextday)}}, React.createElement('legend', {}, <>{plotdescription[x+nextday]}{plotunit}</>)));
       }
   }
@@ -101,23 +108,7 @@ function Plot({time, day, temperature,pop, setDisplayindex, displayindex, nextda
     }
     
       
-    buttonsnextday.push(React.createElement('button', {
-
-        className: "plot",
-        onClick: () => {setDisplayindex(0); setNextday(0)}}, ""));
-        buttonsnextday.push(React.createElement('button', {
-
-          className: "plot",
-          onClick: () => {setNextday(nextdayindex); setDisplayindex(nextdayindex)}}, ""));
-
-          buttonsnextday.push(React.createElement('button', {
-
-            className: "plot",
-            onClick: () => {setNextday(nextdayindex+8); setDisplayindex(nextdayindex+8)}}, ""));
-            buttonsnextday.push(React.createElement('button', {
-
-              className: "plot",
-              onClick: () => {setNextday(nextdayindex+16); setDisplayindex(nextdayindex+16)}}, ""));
+  
   
               
                 return(
@@ -131,8 +122,7 @@ function Plot({time, day, temperature,pop, setDisplayindex, displayindex, nextda
                   </div>
                   <div className= "container-plot hour">{hour}</div>
                  
-                  <div className = "container-plot">{buttonsnextday}</div>
-                  <h2>{displayindex}</h2>
+                
                  </>
                 )
               

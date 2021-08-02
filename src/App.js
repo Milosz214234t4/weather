@@ -11,6 +11,7 @@ import ButtonsTemp from './components/ButtonsTemp/ButtonsTemp';
 import Pophumwind from './components/Pophumwind/Pophumwind';
 import ButtonsPlot from './components/ButtonsPlot/ButtonsPlot';
 import Plot from './components/Plot/Plot';
+import ButtonsNextDay from './components/ButtonsNextDay/ButtonsNextDay';
 
 function App() {
 
@@ -25,7 +26,12 @@ function App() {
   const [precbutton, setPrecbutton] = useState(false);
   const [windbutton, setWindbutton] = useState(false);
   const [plotunit, setPlotunit] = useState("km/h");
-  const [bordercolor, setBordercolor] = useState('#ffff00');
+  const [maxplot, setMaxplot] = useState('')
+  const [bordercolor, setBordercolor] = useState('yellow');
+  const [lat, setLat] = useState('');
+  const [lon, setLon] = useState('');
+
+  
   
   const [weatherData, setweatherdata] = useState({time: [],
   description: [],
@@ -49,132 +55,7 @@ function App() {
   // let arrwinddeg = [];
 
 
-  function getWeatherData(city) {
-    setweatherdata(prevState => {return {        ...prevState,
-      time: [],
-      description:[],
-      id:[],
-      temperature: [],
-      pop:[],
-      hum:[],
-      windspeed: [],
-      winddeg: [],
-      timezone: "",
-      time: [],
-      day: [],
-      
-      
-}    });
-setDisplayindex(0);
-setNextday(0);
-    // arrtime = [];
-    // arrdescription = [];
-    // arrid = [];
-    // arrtemperature =[];
-    // arrpop = [];
-    // arrhum = [];
-    // arrwindspeed = [];
-    // arrwinddeg = [];
-    if(city)
-    {
-     
-
-      axios({
-        method: "GET",
-        url: `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=57cad30057821db5c25882045c6db1c2`,
-
-      })
-
-          .then((response) => {
-            // console.log(response.data.city.timezone);
-          // console.log(response.status);
-          // console.log(Number.parseInt(response.status) === 200)
-          // console.log(response.data.list[0].dt);
-          setResponsecod(Number.parseInt(response.status));
-          var d = new Date();
-          var n = d.getUTCHours();
-          var day = d.getDay();
-          console.log(day);
-          var offset = response.data.city.timezone / 3600;
-          var timeincity = n + offset;
-          var day = d.getDay();
-
-          // console.log(timeincity);
-        
-
-          // var day = d.getDay();
-          var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-          setweatherdata(prevState => {return {        ...prevState,
-            timezone: [...prevState.timezone, response.data.city.timezone],
-           
-
-
-             
-}    }
-
-
-);
-        
-          for(let x = 0; x < 40; x++){
-            // console.log(response.data.list[x].dt_txt)
-            
-           
-            setweatherdata(prevState => {return {        ...prevState,
-            
-             description: [...prevState.description, response.data.list[x].weather[0].description],
-             id: [...prevState.id, response.data.list[x].weather[0].id],
-             temperature: [...prevState.temperature, response.data.list[x].main.temp],
-             pop: [...prevState.pop, Number.parseInt(response.data.list[x].pop * 100)],
-             hum: [...prevState.hum, response.data.list[x].main.humidity],
-             windspeed: [...prevState.windspeed, response.data.list[x].wind.speed],
-             winddeg: [...prevState.winddeg, response.data.list[x].wind.deg],
-             time: [...prevState.time, timeincity],
-             day: [...prevState.day, day],
-
-
-
-
-              
-}    }
-
-
-);
-timeincity = timeincity + 3;
- if(timeincity > 24){
-   timeincity = timeincity%24;
-   if (day > 5){
-     day = 0;
-   }
-   else{
-   day = day + 1;
- }
-}
-
-          }
-              
-    })
-    .catch((error) => {
-      console.log(error);
-      setCity("");
-      
-      
-      
-          
-          
-});
-
-
-           
-
-        
-           
-        
-          
-      
-         
-    }
-  }
+ 
   return (
     <div className="container">
       <div className = "input-div">
@@ -272,28 +153,38 @@ timeincity = timeincity + 3;
           </>
           <Plot
           time ={weatherData.time}
-          day = {weatherData.day}
           temperature={weatherData.temperature}
           pop={weatherData.pop}
           setDisplayindex = {setDisplayindex}
-          displayindex={displayindex}
           nextday={nextday}
           tempbutton = {tempbutton}
           precbutton = {precbutton}
-          windbutton = {windbutton}
           isCelsius = {isCelsius}
-          setNextday={setNextday}
           windspeed={weatherData.windspeed}
           winddeg={weatherData.winddeg}
           setPlotunit={setPlotunit}
           plotunit={plotunit}
           bordercolor={bordercolor}
           setBordercolor={setBordercolor}
+          maxplot={maxplot}
+          setMaxplot={setMaxplot}
+        
          
          
           
 
           />
+          <ButtonsNextDay
+          displayindex = {displayindex}
+          setDisplayindex = {setDisplayindex}
+          nextday = {nextday}
+          setNextday = {setNextday}
+          time = {weatherData.time}
+          temperature = {weatherData.temperature}
+          id = {weatherData.id}
+          day = {weatherData.day}
+          />
+        
           </>
       ) : (
         <></>
@@ -305,6 +196,142 @@ timeincity = timeincity + 3;
     </div>
     
   );
+  function getWeatherData(city) {
+    setweatherdata(prevState => {return {        ...prevState,
+      time: [],
+      description:[],
+      id:[],
+      temperature: [],
+      pop:[],
+      hum:[],
+      windspeed: [],
+      winddeg: [],
+      timezone: "",
+      time: [],
+      day: [],
+      
+      
+}    });
+setDisplayindex(0);
+setNextday(0);
+setPlotunit('km/h');
+setBordercolor("yellow");
+    // arrtime = [];
+    // arrdescription = [];
+    // arrid = [];
+    // arrtemperature =[];
+    // arrpop = [];
+    // arrhum = [];
+    // arrwindspeed = [];
+    // arrwinddeg = [];
+    if(city)
+    {
+     
+
+      axios({
+        method: "GET",
+        url: `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=57cad30057821db5c25882045c6db1c2`,
+
+      })
+
+          .then((response) => {
+            // console.log(response.data.city.timezone);
+          // console.log(response.status);
+          // console.log(Number.parseInt(response.status) === 200)
+          // console.log(response.data.list[0].dt);
+          setResponsecod(Number.parseInt(response.status));
+          var d = new Date();
+          var n = d.getUTCHours();
+          var day = d.getDay();
+          // console.log(response.data.city.coord.lat);
+          console.log(response.data.city.coord.lom);
+          // console.log(response.data.city.coord.lat)
+          setLat(Number.parseInt(response.data.city.coord.lat));
+          setLon(Number.parseInt(response.data.city.coord.lon));
+          // console.log(lat, lon);
+          var offset = response.data.city.timezone / 3600;
+          var timeincity = n + offset;
+          var day = d.getDay();
+          console.log(weatherData.day)
+          // console.log(timeincity);
+        
+
+          // var day = d.getDay();
+          var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+          setweatherdata(prevState => {return {        ...prevState,
+            timezone: [...prevState.timezone, response.data.city.timezone],
+           
+
+
+             
+}    }
+
+
+);
+        
+          for(let x = 0; x < 40; x++){
+            // console.log(response.data.list[x].dt_txt)
+            
+           
+            setweatherdata(prevState => {return {        ...prevState,
+            
+             description: [...prevState.description, response.data.list[x].weather[0].description],
+             id: [...prevState.id, response.data.list[x].weather[0].id],
+             temperature: [...prevState.temperature, response.data.list[x].main.temp],
+             pop: [...prevState.pop, Number.parseInt(response.data.list[x].pop * 100)],
+             hum: [...prevState.hum, response.data.list[x].main.humidity],
+             windspeed: [...prevState.windspeed, response.data.list[x].wind.speed],
+             winddeg: [...prevState.winddeg, response.data.list[x].wind.deg],
+             time: [...prevState.time, timeincity],
+             day: [...prevState.day, days[day]],
+
+
+
+
+              
+}    }
+
+
+);
+timeincity = timeincity + 3;
+ if(timeincity > 24){
+   timeincity = timeincity%24;
+   if (day > 5){
+     day = 0;
+   }
+   else{
+   day = day + 1;
+ }
+}
+
+          }
+              
+    })
+    .catch((error) => {
+      console.log(error);
+      setCity("");
+      
+      
+      
+          
+          
+});
+
+
+
+        
+           
+        
+          
+      
+         
+    }
+   
+  }
+  
+  
                 }
+                
 
 export default App;
