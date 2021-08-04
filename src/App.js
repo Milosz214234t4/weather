@@ -183,6 +183,7 @@ function App() {
           temperature = {weatherData.temperature}
           id = {weatherData.id}
           day = {weatherData.day}
+          isCelsius = {isCelsius}
           />
         
           </>
