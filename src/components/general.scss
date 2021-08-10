@@ -52,7 +52,12 @@ input[type=text] {
       background: orange;
   }
   .left{
-      width: 50%;
+      width: 40%;
       float: left;
       display: flex;
-  }
+    margin-left: 20px;
+    }
+
+    .icon-hour{
+        margin-top: 35px;
+    }

@@ -1,5 +1,6 @@
 .plot{
-    width: 12%
+    width: 12%;
+    
 }
 .container-plot{
     display: flex;
@@ -9,6 +10,7 @@
 }
 .hour{
     height: 20px;
+    margin-bottom: 20px;
 }
 legend{
     margin-left: auto;
@@ -19,11 +21,11 @@ text-align: center;
 
 }
 .arrow{
-    display: flex;
-    justify-content: center;
-    width: 12%;
-    transform: scale(2.0);
-margin-top: auto;
-margin-bottom: auto;
+   margin: auto;
 }
 
+.arrow-container{
+    width: 12%;
+    height: 100%;
+    display: flex;
+}
