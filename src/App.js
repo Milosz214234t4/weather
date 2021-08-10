@@ -39,7 +39,8 @@ function App() {
   const [bordercolor, setBordercolor] = useState("yellow");
   const [lat, setLat] = useState("");
   const [lon, setLon] = useState("");
-
+  const [cityname, setCityname] = useState("");
+  const [numberButton, setNumberButton] = useState(1);
   const [weatherData, setweatherdata] = useState({
     time: [],
     description: [],
@@ -69,8 +70,8 @@ function App() {
           className="input-text"
           type="text"
           placeholder="City-name"
-          onChange={(e) => setCity(e.target.value)}
-          value={city}
+          onChange={(e) => setCityname(e.target.value)}
+          value={cityname}
         />
         <X
           className="clean-button"
@@ -84,8 +85,9 @@ function App() {
         <button
           className="cityname"
           onClick={() => {
+            setCity(cityname);
             getWeatherData(city);
-            setCity(city);
+
 
             // latlon(lat, lon)
             // setError(false);
@@ -137,6 +139,8 @@ function App() {
             setTempbutton={setTempbutton}
             setPrecbutton={setPrecbutton}
             setWindbutton={setWindbutton}
+            numberButton = {numberButton}
+            setNumberButton = {setNumberButton}
           />
           <></>
           <Plot
@@ -241,7 +245,7 @@ function App() {
             "Friday",
             "Saturday",
           ];
-
+          
           setweatherdata((prevState) => {
             return {
               ...prevState,

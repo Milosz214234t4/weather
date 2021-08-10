@@ -68,6 +68,8 @@ function ButtonsNextDay({
     Number.parseInt(nextdayindex + 15)
   );
   var dayfour = minmax(minmaxtemp, nextdayindex + 16, nextdayindex + 23);
+  var dayfive = minmax(minmaxtemp, nextdayindex + 24, nextdayindex + 31);
+
 
   var iddayonearr = id.slice(0, nextdayindex);
   let iddayone = average(iddayonearr);
@@ -80,20 +82,27 @@ function ButtonsNextDay({
   // console.log(iddaythree);
   var iddayfourarr = id.slice(nextdayindex + 17, nextdayindex + 25);
   let iddayfour = average(iddayfourarr);
-  console.log(day);
+
+  var iddayfivearr = id.slice(nextdayindex + 25, nextdayindex + 33);
+  let iddayfive = average(iddayfivearr);
+  // console.log(day);
   // console.log(iddayfour);
   // console.log(id);
-  arrid.push(iddayone, iddaytwo, iddaythree, iddayfour);
-  console.log(arrid);
+  arrid.push(iddayone, iddaytwo, iddaythree, iddayfour, iddayfive);
+  // console.log(arrid);
 
   buttonsnextday.push(
     React.createElement(
       "button",
       {
-        className: "plot plot-icon",
+        className: "plot plot-icon background-buttonnextday",
+        id: "nextday-zero",
         onClick: () => {
           setDisplayindex(0);
           setNextday(0);
+          background(0);
+
+          
         },
       },
       React.createElement("p", { className: "p-buttons" }, `${day[0]}`),
@@ -116,10 +125,13 @@ function ButtonsNextDay({
       "button",
       {
         className: "plot plot-icon",
+        id: "nextday-one",
+
 
         onClick: () => {
           setNextday(nextdayindex);
           setDisplayindex(nextdayindex);
+          background(1);
         },
       },
       // React.createElement("h4", {}, `${day[nextdayindex]}`),
@@ -143,10 +155,13 @@ function ButtonsNextDay({
     React.createElement(
       "button",
       {
-        className: "plot",
-        onClick: () => {
+        className: "plot plot-icon",
+        id: "nextday-two",
+
+                onClick: () => {
           setNextday(nextdayindex + 8);
           setDisplayindex(nextdayindex + 8);
+          background(2);
         },
       },
       React.createElement("p", { className: "p-buttons" }, `${day[nextdayindex+8]}`),
@@ -166,10 +181,14 @@ function ButtonsNextDay({
     React.createElement(
       "button",
       {
-        className: "plot",
+        className: "plot plot-icon",
+        id: "nextday-three",
+
         onClick: () => {
           setNextday(nextdayindex + 16);
           setDisplayindex(nextdayindex + 16);
+          background(3);
+
         },
       },
       React.createElement("p", { className: "p-buttons" }, `${day[nextdayindex+16]}`),
@@ -185,6 +204,93 @@ function ButtonsNextDay({
       )
     )
   );
+  buttonsnextday.push(
+    React.createElement(
+      "button",
+      {
+        className: "plot plot-icon",
+        id: "nextday-four",
+
+        onClick: () => {
+          setNextday(nextdayindex + 24);
+          setDisplayindex(nextdayindex + 24);
+          background(4);
+
+        },
+      },
+      React.createElement("p", { className: "p-buttons" }, `${day[nextdayindex+24]}`),
+      React.createElement(Icon, {
+        id: arrid,
+        displayindex: 4,
+      }),
+
+      React.createElement(
+        "h3",
+        { className: "tempmaxmin" },
+        `${dayfive.max}${temperatureunit} ${dayfive.min}${temperatureunit}`
+      )
+    )
+  );
+
+  function background(id){
+    console.log(id);
+    let a = document.querySelector("#nextday-zero");
+    let b = document.querySelector("#nextday-one");
+    let c = document.querySelector("#nextday-two");
+    let d = document.querySelector("#nextday-three");
+    let e = document.querySelector("#nextday-four");
+    if(id == 0){
+     
+
+      a.classList.add("background-buttonnextday");
+      b.classList.remove("background-buttonnextday");
+      c.classList.remove("background-buttonnextday");
+      d.classList.remove("background-buttonnextday");
+      e.classList.remove("background-buttonnextday");     
+      
+    }
+    if(id == 1){
+     
+
+      b.classList.add("background-buttonnextday");
+      a.classList.remove("background-buttonnextday");
+      c.classList.remove("background-buttonnextday");
+      d.classList.remove("background-buttonnextday");
+      e.classList.remove("background-buttonnextday");  
+      
+    }
+    if(id == 2){
+     
+
+      c.classList.add("background-buttonnextday");
+      b.classList.remove("background-buttonnextday");
+      a.classList.remove("background-buttonnextday");
+      d.classList.remove("background-buttonnextday");
+      e.classList.remove("background-buttonnextday");   
+      
+    }
+    if(id == 3){
+     
+
+      d.classList.add("background-buttonnextday");
+      b.classList.remove("background-buttonnextday");
+      c.classList.remove("background-buttonnextday");
+      a.classList.remove("background-buttonnextday");
+      e.classList.remove("background-buttonnextday");  
+      
+    }
+    if(id == 4){
+     
+
+      e.classList.add("background-buttonnextday");
+      b.classList.remove("background-buttonnextday");
+      c.classList.remove("background-buttonnextday");
+      d.classList.remove("background-buttonnextday");
+      a.classList.remove("background-buttonnextday");    
+      
+    }
+
+  }
 
   return (
     <>
@@ -192,10 +298,7 @@ function ButtonsNextDay({
         {buttonsnextday}
       </div>
       <h2>{displayindex}</h2>
-      <Icon id={arrid} displayindex={0} />
-      <Icon id={arrid} displayindex={1} />
-      <Icon id={arrid} displayindex={2} />
-      <Icon id={arrid} displayindex={3} />
+   
     </>
   );
 }
