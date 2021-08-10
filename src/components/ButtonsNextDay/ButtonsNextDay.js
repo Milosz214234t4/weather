@@ -84,7 +84,7 @@ function ButtonsNextDay({
   // console.log(iddayfour);
   // console.log(id);
   arrid.push(iddayone, iddaytwo, iddaythree, iddayfour);
-  // console.log(arrid);
+  console.log(arrid);
 
   buttonsnextday.push(
     React.createElement(
@@ -110,17 +110,26 @@ function ButtonsNextDay({
       )
     )
   );
+  
   buttonsnextday.push(
     React.createElement(
       "button",
       {
-        className: "plot",
+        className: "plot plot-icon",
+
         onClick: () => {
           setNextday(nextdayindex);
           setDisplayindex(nextdayindex);
         },
       },
-      React.createElement("h4", {}, `${day[nextdayindex]}`),
+      // React.createElement("h4", {}, `${day[nextdayindex]}`),
+      React.createElement("p", { className: "p-buttons" }, `${day[nextdayindex]}`),
+      React.createElement(Icon, {
+        id: arrid,
+        displayindex: 1,
+        nextday: true,
+      }),
+
 
       React.createElement(
         "h3",
@@ -140,7 +149,11 @@ function ButtonsNextDay({
           setDisplayindex(nextdayindex + 8);
         },
       },
-      React.createElement("h4", {}, `${day[nextdayindex + 8]}`),
+      React.createElement("p", { className: "p-buttons" }, `${day[nextdayindex+8]}`),
+      React.createElement(Icon, {
+        id: arrid,
+        displayindex: 2,
+      }),
 
       React.createElement(
         "h3",
@@ -159,7 +172,11 @@ function ButtonsNextDay({
           setDisplayindex(nextdayindex + 16);
         },
       },
-      React.createElement("h4", {}, `${day[nextdayindex + 16]}`),
+      React.createElement("p", { className: "p-buttons" }, `${day[nextdayindex+16]}`),
+      React.createElement(Icon, {
+        id: arrid,
+        displayindex: 3,
+      }),
 
       React.createElement(
         "h3",

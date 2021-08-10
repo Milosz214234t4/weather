@@ -11,7 +11,7 @@ import {
   ArrowUp,
 } from "react-bootstrap-icons";
 import "../Icon/Icon.scss";
-function Icon({ id, displayindex, nextday }) {
+function Icon({ id, displayindex }) {
   // console.log(id);
   // console.log(displayindex);
   //    console.log(displayindex);

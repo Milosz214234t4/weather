@@ -109,7 +109,6 @@ function App() {
             <Icon
               id={weatherData.id}
               displayindex={displayindex}
-              className="icon-hou"
             />
             <Temperature
               temperature={weatherData.temperature}
