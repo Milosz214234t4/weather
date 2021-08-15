@@ -25,7 +25,8 @@ import ButtonsNextDay from "./components/ButtonsNextDay/ButtonsNextDay";
 import ErrorComponent from "./components/ErrorComponent/ErrorComponent";
 
 function App() {
-  const [Error, setError] = useState(false)
+  const [Error, setError] = useState(true);
+ const [errormessage, setErrormessage] = useState("");
   const [city, setCity] = useState("");
   const [responsecod, setResponsecod] = useState(0);
   const [displayindex, setDisplayindex] = useState(0);
@@ -82,7 +83,7 @@ function App() {
           className="clean-button"
           onClick={() => {
             setCity("");
-
+            setCityname("")
             // latlon(lat, lon)
             // setError(false);
           }}
@@ -92,7 +93,7 @@ function App() {
           onClick={() => {
             setCity(cityname);
             getWeatherData(cityname);
-            setCity(city);
+            setCityname(cityname);
 
 
             // latlon(lat, lon)
@@ -106,7 +107,7 @@ function App() {
       {responsecod  ? (
         <>
           <RightTop
-            city={cityname}
+            city={city}
             day={weatherData.day}
             time={weatherData.time}
             description={weatherData.description}
@@ -190,9 +191,7 @@ function App() {
             isCelsius={isCelsius}
             Error={Error}
           />
-          <ErrorComponent
-          Error={Error}
-          />
+         
         </>
       ) : (
         <></>
@@ -200,6 +199,10 @@ function App() {
       )}
 
       <></>
+      <ErrorComponent
+          Error={Error}
+          errormessage={errormessage}
+          />
     </div>
   );
   function getWeatherData(city) {
@@ -246,6 +249,7 @@ function App() {
         if(Number.parseInt(response.status) === 200){
           setResponsecod(true); 
           setError(false);
+          setErrormessage("")
 
         }
         else{
@@ -328,9 +332,10 @@ function App() {
           }
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.message);
           setCity("");
           setError(true);
+         setErrormessage(error.message);
         });
     }
   }
