@@ -10,6 +10,7 @@ function ButtonsPlot({
   setWindbutton,
   numberButton,
   setNumberButton,
+  Error
 }) {
   // console.log(numberButton);
   function addborder(numberButton){
@@ -37,6 +38,7 @@ function ButtonsPlot({
       y.classList.remove("border-button");
       x.classList.remove("border-button");    }
   }
+  if(!Error){
   return (
     <div className = "buttons-pophumwind">
       <button
@@ -82,6 +84,10 @@ function ButtonsPlot({
       </button>
     </div>
   );
+      }
+      else{
+        return(<></>)
+      }
 }
 
 export default ButtonsPlot;

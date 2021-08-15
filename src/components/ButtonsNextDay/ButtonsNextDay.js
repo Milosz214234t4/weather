@@ -12,6 +12,7 @@ function ButtonsNextDay({
   id,
   day,
   isCelsius,
+  Error
 }) {
   let buttonsnextday = [];
   let nextdayindex;
@@ -291,7 +292,7 @@ function ButtonsNextDay({
     }
 
   }
-
+if(!Error){
   return (
     <>
       <div className="container-plot" style={{ paddingTop: "30px" }}>
@@ -301,6 +302,12 @@ function ButtonsNextDay({
    
     </>
   );
+}
+else{
+  return(
+    <></>
+  )
+}
 }
 
 export default ButtonsNextDay;

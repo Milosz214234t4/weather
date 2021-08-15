@@ -18,6 +18,7 @@ function Plot({
   setBordercolor,
   maxplot,
   setMaxplot,
+  Error
 }) {
   let nextdayindex;
   let components = [];
@@ -145,7 +146,7 @@ function Plot({
       nextdayindex = x + 1;
     }
   }
-
+  if(!Error){
   return (
     <>
       <div className="container-plot">{winddata}</div>
@@ -153,6 +154,12 @@ function Plot({
       <div className="container-plot hour">{hour}</div>
     </>
   );
+  }
+  else{
+    return(
+      <></>
+    )
+  }
 }
 
 export default Plot;

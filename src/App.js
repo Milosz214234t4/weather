@@ -22,8 +22,10 @@ import Pophumwind from "./components/Pophumwind/Pophumwind";
 import ButtonsPlot from "./components/ButtonsPlot/ButtonsPlot";
 import Plot from "./components/Plot/Plot";
 import ButtonsNextDay from "./components/ButtonsNextDay/ButtonsNextDay";
+import ErrorComponent from "./components/ErrorComponent/ErrorComponent";
 
 function App() {
+  const [Error, setError] = useState(false)
   const [city, setCity] = useState("");
   const [responsecod, setResponsecod] = useState(0);
   const [displayindex, setDisplayindex] = useState(0);
@@ -39,6 +41,7 @@ function App() {
   const [bordercolor, setBordercolor] = useState("yellow");
   const [lat, setLat] = useState("");
   const [lon, setLon] = useState("");
+
   const [cityname, setCityname] = useState("");
   const [numberButton, setNumberButton] = useState(1);
   const [weatherData, setweatherdata] = useState({
@@ -70,6 +73,8 @@ function App() {
           className="input-text"
           type="text"
           placeholder="City-name"
+          onChange={(e) => setCity(e.target.value)}
+          value={city}
           onChange={(e) => setCityname(e.target.value)}
           value={cityname}
         />
@@ -86,7 +91,8 @@ function App() {
           className="cityname"
           onClick={() => {
             setCity(cityname);
-            getWeatherData(city);
+            getWeatherData(cityname);
+            setCity(city);
 
 
             // latlon(lat, lon)
@@ -97,31 +103,37 @@ function App() {
         </button>
       </div>
 
-      {responsecod === 200 ? (
+      {responsecod  ? (
         <>
           <RightTop
-            city={city}
+            city={cityname}
             day={weatherData.day}
             time={weatherData.time}
             description={weatherData.description}
             nextday={nextday}
             displayindex={displayindex}
+            responsecod={responsecod}
+            Error={Error}
           />
           <div className="left">
             <Icon
               id={weatherData.id}
               displayindex={displayindex}
+              Error={Error}
             />
             <Temperature
               temperature={weatherData.temperature}
               displayindex={displayindex}
               isCelsius={isCelsius}
+              Error= {Error}
             />
             <ButtonsTemp
               isCelsius={isCelsius}
               setIsCelsius={setIsCelsius}
               unit={unit}
               setUnit={setUnit}
+              Error= {Error}
+
             />
             <Pophumwind
               pop={weatherData.pop}
@@ -130,6 +142,8 @@ function App() {
               displayindex={displayindex}
               isCelsius={isCelsius}
               unit={unit}
+              Error= {Error}
+
             />
           </div>
           <ButtonsPlot
@@ -141,6 +155,8 @@ function App() {
             setWindbutton={setWindbutton}
             numberButton = {numberButton}
             setNumberButton = {setNumberButton}
+            Error= {Error}
+
           />
           <></>
           <Plot
@@ -160,6 +176,7 @@ function App() {
             setBordercolor={setBordercolor}
             maxplot={maxplot}
             setMaxplot={setMaxplot}
+            Error={Error}
           />
           <ButtonsNextDay
             displayindex={displayindex}
@@ -171,10 +188,15 @@ function App() {
             id={weatherData.id}
             day={weatherData.day}
             isCelsius={isCelsius}
+            Error={Error}
+          />
+          <ErrorComponent
+          Error={Error}
           />
         </>
       ) : (
         <></>
+    
       )}
 
       <></>
@@ -219,7 +241,17 @@ function App() {
           // console.log(response.status);
           // console.log(Number.parseInt(response.status) === 200)
           // console.log(response.data.list[0].dt);
-          setResponsecod(Number.parseInt(response.status));
+         
+          // setResponsecod(Number.parseInt(response.status));
+        if(Number.parseInt(response.status) === 200){
+          setResponsecod(true); 
+          setError(false);
+
+        }
+        else{
+          setResponsecod(false);
+          setError(true);
+        }
           var d = new Date();
           var n = d.getUTCHours();
           var day = d.getDay();
@@ -245,6 +277,7 @@ function App() {
             "Friday",
             "Saturday",
           ];
+
           
           setweatherdata((prevState) => {
             return {
@@ -297,6 +330,7 @@ function App() {
         .catch((error) => {
           console.log(error);
           setCity("");
+          setError(true);
         });
     }
   }

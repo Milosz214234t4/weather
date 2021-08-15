@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../ButtonsTemp/ButtonsTemp.scss";
-function ButtonsTemp({ isCelsius, setIsCelsius, unit, setUnit }) {
+function ButtonsTemp({ isCelsius, setIsCelsius, unit, setUnit, Error }) {
+  if(!Error){
   return (
     <div className="container-buttons">
       <button
@@ -27,6 +28,10 @@ function ButtonsTemp({ isCelsius, setIsCelsius, unit, setUnit }) {
       </button>
     </div>
   );
+      }
+      else{
+        return(<></>)
+      }
 }
 
 export default ButtonsTemp;

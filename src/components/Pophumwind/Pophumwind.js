@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "../Pophumwind/Pophumwind.scss";
 
-function Pophumwind({ pop, hum, windspeed, displayindex, isCelsius, unit }) {
+function Pophumwind({ pop, hum, windspeed, displayindex, isCelsius, unit, Error }) {
   // console.log(pop);
   // console.log(hum);
   // console.log(windspeed);
-
+  if(!Error){
   return (
     <div className="container-pophumwind">
       <h4>Precipitation: {pop[displayindex]}%</h4>
@@ -25,6 +25,12 @@ function Pophumwind({ pop, hum, windspeed, displayindex, isCelsius, unit }) {
       )}
     </div>
   );
+      }
+      else{
+        return(
+          <></>
+        )
+      }
 }
 
 export default Pophumwind;

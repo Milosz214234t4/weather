@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "../Temperature/Temperature.scss";
-function Temperature({ temperature, displayindex, isCelsius }) {
+function Temperature({ temperature, displayindex, isCelsius, Error }) {
   // console.log(temperature[displayindex])
+  if(!Error){
   if (isCelsius) {
     return (
       <h2 className="temperature-value">
@@ -15,6 +16,12 @@ function Temperature({ temperature, displayindex, isCelsius }) {
       </h2>
     );
   }
+}
+else{
+  return(
+    <></>
+  )
+}
 }
 
 export default Temperature;

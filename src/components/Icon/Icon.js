@@ -11,7 +11,7 @@ import {
   ArrowUp,
 } from "react-bootstrap-icons";
 import "../Icon/Icon.scss";
-function Icon({ id, displayindex }) {
+function Icon({ id, displayindex, Error }) {
   // console.log(id);
   // console.log(displayindex);
   //    console.log(displayindex);
@@ -20,6 +20,7 @@ function Icon({ id, displayindex }) {
   let a = Number.parseInt(id[displayindex]);
   //    console.log(a);
   //    console.log(id[displayindex])
+if(!Error){
   if (a > 799) {
     return <Sun className="icon"></Sun>;
   } else if (a > 200 && a < 233) {
@@ -40,6 +41,12 @@ function Icon({ id, displayindex }) {
   } else {
     return <CloudLightningRain className="icon"></CloudLightningRain>;
   }
+}
+else{
+  return(
+    <></>
+  )
+}
 }
 
 export default Icon;
