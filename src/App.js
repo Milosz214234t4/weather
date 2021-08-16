@@ -332,7 +332,7 @@ function App() {
           }
         })
         .catch((error) => {
-          console.log(error.message);
+          console.log(error);
           setCity("");
           setError(true);
          setErrormessage(error.message);

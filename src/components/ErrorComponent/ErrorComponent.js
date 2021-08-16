@@ -5,7 +5,7 @@ function ErrorComponent({Error, errormessage }) {
     if(Error){
     return (
       <>
-        <h4>{errormessage}</h4>
+        <span className="error">{errormessage}</span>
      
       </>
     

@@ -83,7 +83,6 @@ function Plot({
             {},
             <>
               {plotdescription[x + nextday]}
-              {plotunit}
             </>
           )
         )
